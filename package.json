@@ -8,6 +8,7 @@
     "watch:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css -w",
     "start:dev": "npm run watch:css & nodemon ./bin/www --watch .",
     "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
