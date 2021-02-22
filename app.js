@@ -1,14 +1,14 @@
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+
+import indexRouter from './routes/index';
+import usersRouter from './routes/users';
+import covidRouter from './routes/covid';
+
 require('dotenv').config();
-
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const covidRouter = require('./routes/covid');
 
 const app = express();
 

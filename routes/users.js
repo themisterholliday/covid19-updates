@@ -1,8 +1,12 @@
-const express = require('express');
+import express from 'express';
+
+import {
+  getAllUsers,
+  createUser,
+  deleteUserByEmail,
+} from '../services/user.service';
 
 const router = express.Router();
-
-const { getAllUsers, createUser } = require('../services/user.service');
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
@@ -10,6 +14,7 @@ router.get('/', async function (req, res, next) {
   res.json({ users: allUsers });
 });
 
+/* POST create user. */
 router.post('/', async function (req, res, next) {
   const { email, stateName, stateAbbreviation } = req.body;
   if (!email || !stateName || !stateAbbreviation) {
