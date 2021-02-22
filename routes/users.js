@@ -1,10 +1,7 @@
 import express from 'express';
 
-import {
-  getAllUsers,
-  createUser,
-  deleteUserByEmail,
-} from '../services/user.service';
+import { getAllUsers, createUser } from '../services/user.service';
+import { getAvailableStates } from '../services/covid-data.service';
 
 const router = express.Router();
 
@@ -16,17 +13,24 @@ router.get('/', async function (req, res, next) {
 
 /* POST create user. */
 router.post('/', async function (req, res, next) {
-  const { email, stateName, stateAbbreviation } = req.body;
+  const { states } = getAvailableStates();
+  const { email, state } = req.body;
+  const stateJSON = JSON.parse(state);
+  const { name: stateName, abbreviation: stateAbbreviation } = stateJSON;
   if (!email || !stateName || !stateAbbreviation) {
     res.status(400);
-    res.send('Missing values');
+    res.end();
     return;
   }
   try {
-    const user = await createUser({ email, stateName, stateAbbreviation });
-    res.json(user);
+    await createUser({ email, stateName, stateAbbreviation });
+    res.redirect('/success');
   } catch (error) {
-    next(error);
+    res.render('index', {
+      title: 'Covid-19 Email Updates',
+      states,
+      error: error.message,
+    });
   }
 });
 

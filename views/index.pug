@@ -1,5 +1,18 @@
 extends layout
 
 block content
-  h1(class='bg-blue-500')= title
-  p Welcome to #{title}
+  div(class="space-y-3")
+    h1(class='text-5xl text-center')= title
+    p Welcome to #{title}
+    form(class='space-y-2' action='/users', method="post")
+          div
+            label(for="email" class="sr-only") Email address
+            input(type="email" name="email" class="form-control" placeholder="Email address" required autofocus)
+          div
+            select(name="state")
+              each state in states
+                option(value=state) #{state.name}
+          div.actions
+            input(class='px-2 py-3 rounded-md bg-blue-500 text-white' type="submit", value="Get email updates")
+    if error
+      p(class='text-red-500') #{error}
