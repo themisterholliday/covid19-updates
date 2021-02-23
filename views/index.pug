@@ -6,9 +6,11 @@ block content
     p Welcome to #{title}
     form(class='space-y-2' action='/users', method="post")
           div
+            label(class="block pb-2" for="email") Enter the email we should send updates to
             label(for="email" class="sr-only") Email address
             input(type="email" name="email" class="form-control" placeholder="Email address" required autofocus)
           div
+            label(class="block pb-2" for="state") Select your state
             select(name="state")
               each state in states
                 option(value=state) #{state.name}
