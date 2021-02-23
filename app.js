@@ -10,7 +10,11 @@ import covidRouter from './routes/covid';
 
 require('dotenv').config();
 
+const newrelic = require('newrelic');
+
 const app = express();
+
+app.locals.newrelic = newrelic;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
