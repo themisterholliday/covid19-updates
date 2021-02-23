@@ -70,6 +70,7 @@ function onListening(server) {
 }
 
 async function start() {
+  console.log('Starting server');
   return new Promise((resolve) => {
     // Start the express application
     /**
@@ -98,8 +99,7 @@ async function start() {
   try {
     await startMongoose();
     await start();
-    // runCronJobs()
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 })();
