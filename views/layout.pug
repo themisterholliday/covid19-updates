@@ -4,6 +4,7 @@ html
     != newrelic.getBrowserTimingHeader()
     title= 'Covid-19 Email Updates'
     link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
   body
     div(class='container mx-auto px-8 py-4 min-h-screen text-gray-900')
       block content
