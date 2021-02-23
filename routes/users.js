@@ -5,11 +5,10 @@ import { getAvailableStates } from '../services/covid-data.service';
 
 const router = express.Router();
 
-// /* GET users listing. */
-// router.get('/', async function (req, res, next) {
-//   const allUsers = await getAllUsers();
-//   res.json({ users: allUsers });
-// });
+/* GET users listing. */
+router.get('/', async function (req, res, next) {
+  res.redirect('/');
+});
 
 /* POST create user. */
 router.post('/', async function (req, res, next) {

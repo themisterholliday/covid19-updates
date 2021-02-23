@@ -2,19 +2,32 @@ extends layout
 
 block content
   div(class="space-y-3")
-    h1(class='text-5xl text-center')= title
-    p Welcome to #{title}
-    form(class='space-y-2' action='/users', method="post")
+    h1(class='text-5xl text-center pb-3')= title
+    p 
+      | We built this app to provide a simple way of receiving updates about Covid-19 in your state.
+    div
+      p 
+        | When you sign up for email updates we will send you daily updates of these values: 
+        ul(class='list-disc list-inside')
+          li New Tests
+          li New Cases
+          li Current hospitalizations
+          li New deaths
+    form(class='space-y-2 pt-4' action='/users', method="post")
           div
-            label(class="block pb-2" for="email") Enter the email we should send updates to
+            label(class="block pb-1 text-lg" for="email") Enter the email we should send updates to
             label(for="email" class="sr-only") Email address
             input(type="email" name="email" class="form-control" placeholder="Email address" required autofocus)
           div
-            label(class="block pb-2" for="state") Select your state
+            label(class="block pb-1 text-lg" for="state") Select your state
             select(name="state")
               each state in states
                 option(value=state) #{state.name}
-          div.actions
-            input(class='px-2 py-3 rounded-md bg-blue-500 text-white' type="submit", value="Get email updates")
+          div(class='pt-2')
+            input(class='px-2 py-3 rounded-md bg-blue-500 text-white text-lg' type="submit", value="Get email updates")
     if error
       p(class='text-red-500') #{error}
+  div(class='sm:fixed sm:left-0 sm:bottom-0 w-full text-center py-4')
+    p 
+    | (This project was built as a part of the 
+    a(href='https://dev.to/devteam/announcing-the-new-relic-hack-the-planet-contest-on-dev-5d' class='text-blue-500 hover:text-blue-700' target="_blank" rel="noopener noreferrer") New Relic Hack the Planet Contest)
