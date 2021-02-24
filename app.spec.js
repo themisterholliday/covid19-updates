@@ -1,3 +1,9 @@
+import { getAllData } from './services/covid-data.service';
+import {
+  getDataToSendForUser,
+  buildCovidUpdateEmailInfo,
+} from './services/send-emails.service';
+
 const request = require('supertest');
 const app = require('./app');
 
@@ -31,5 +37,21 @@ describe('/covid', function () {
         expect(states.length).toBe(56);
       })
       .expect(200, done);
+  });
+});
+
+describe('email builder', function () {
+  it('build covid update email', async function (done) {
+    const user = { email: '', stateName: 'Oklahoma', stateAbbreviation: 'OK' };
+    const allCovidData = await getAllData();
+    const covidData = getDataToSendForUser(user, allCovidData);
+    const { email, subject, message } = buildCovidUpdateEmailInfo(
+      user,
+      covidData
+    );
+    expect(email).toBe('');
+    expect(subject).toBe('Here is your daily Covid-19 update for Oklahoma');
+    expect(message).toBeNull();
+    done();
   });
 });

@@ -2,7 +2,7 @@ import { getAllData } from './covid-data.service';
 import { sendEmail } from './sendgrid.service';
 import { getAllUsers } from './user.service';
 
-function getDataToSendForUser(user, data) {
+export function getDataToSendForUser(user, data) {
   const selectedState = user.stateAbbreviation;
   const covidData = data.find(
     (x) => x.state.toLowerCase() === selectedState.toLowerCase()
@@ -28,6 +28,11 @@ function createUpdateMessage(stateName, covidData) {
     month: 'long',
     day: 'numeric',
   };
+
+  if (!dateModified) {
+    return null;
+  }
+
   const updatedDate = new Date(dateModified).toLocaleDateString(
     'en-US',
     options
@@ -50,10 +55,22 @@ function createUpdateMessage(stateName, covidData) {
   `;
 }
 
-function sendCovidUpdateEmail(user, covidData) {
+export function buildCovidUpdateEmailInfo(user, covidData) {
   const { email, stateName } = user;
   const message = createUpdateMessage(stateName, covidData);
   const subject = `Here is your daily Covid-19 update for ${stateName}`;
+  return { email, subject, message };
+}
+
+function sendCovidUpdateEmail(user, covidData) {
+  const { email, subject, message } = buildCovidUpdateEmailInfo(
+    user,
+    covidData
+  );
+  if (!message) {
+    console.log(`No message sent for ${user.stateName}`);
+    return;
+  }
   sendEmail({ toEmail: email, subject, text: message });
 }
 
