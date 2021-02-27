@@ -1,6 +1,6 @@
 # Covid-19 Updates
 
-A small app to send email updates about Covid-19 in your state.
+A small node app to send daily email updates about Covid-19 in your state using data from [The COVID Tracking Project](https://covidtracking.com/data/api)
 
 This project was built as a part of the [New Relic Hack the Planet Contest](https://dev.to/devteam/announcing-the-new-relic-hack-the-planet-contest-on-dev-5d)
 
